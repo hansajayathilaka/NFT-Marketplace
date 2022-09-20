@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {ethers} from "ethers";
 import axios from 'axios';
-import {Web3Modal} from "web3modal";
+import Web3Modal from "web3modal";
 
 import {
-    nftaddress, nftmarketaddress,
+    nftaddress, nftmarketaddress, rpc
 } from "../config";
 
 import NFT from '../artifacts/contracts/NFT.sol/NFT.json';
@@ -26,7 +26,7 @@ export default function Home() {
     }, [])
 
     async function loadNFTs() {
-        const provider = new ethers.providers.JsonRpcProvider();
+        const provider = new ethers.providers.JsonRpcProvider(rpc);
         const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider);
         const marketContract = new ethers.Contract(nftmarketaddress, Market.abi, provider);
 
@@ -48,7 +48,7 @@ export default function Home() {
             }
             return item;
         }));
-        debugger;
+
         setNfts(items);
         setLoadingState('loaded');
     }
@@ -56,7 +56,7 @@ export default function Home() {
     async function buyNft(nft) {
         const web3Modal = new Web3Modal();
         const connection = await web3Modal.connect();
-        const provider = new ethers.prividers.Web3Provider(connection)
+        const provider = new ethers.providers.Web3Provider(connection)
 
         const signer = provider.getSigner()
         const contract = new ethers.Contract(nftmarketaddress, Market.abi, signer)

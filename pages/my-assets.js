@@ -34,10 +34,13 @@ export default function MyAssets() {
             const meta = await axios.get(tokenUri);
             let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
             let item = {
+                price,
                 tokenId: i.tokenId.toNumber().tokenId,
                 seller: i.seller,
                 owner: i.owner,
                 image: meta.data.image,
+                name: meta.data.name,
+                description: meta.data.description,
             }
             return item;
         }));

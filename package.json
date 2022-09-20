@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "dev-node": "npx hardhat node",
+    "dev-deploy": "npx hardhat run scripts/deploy.js --network localhost",
+    "mumbai-deploy": "npx hardhat run scripts/deploy.js --network mumbai"
   },
   "dependencies": {
     "@nomicfoundation/hardhat-toolbox": "^1.0.2",
